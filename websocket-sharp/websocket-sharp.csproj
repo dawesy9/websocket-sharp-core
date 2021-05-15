@@ -1,8 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>WebSocketSharp</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <PackageId>WebsocketSharp.Core</PackageId>
+    <Version>1.0.2</Version>
+    <Authors>Sta, Adam Dawes</Authors>
+    <Company></Company>
+    <Product>websocket-sharp-core</Product>
+    <Description>A .Net Standard port of the websocket-sharp library created by sta</Description>
+    <RepositoryUrl>https://github.com/dawesy9/websocket-sharp-core</RepositoryUrl>
+    <PackageTags>.NetStandard .NetCore Websocket Websocket-Sharp</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <Copyright></Copyright>
+    <PackageIcon>websocket-sharp.core_icon.png</PackageIcon>
+    <RepositoryType>Github</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug</OutputPath>
@@ -23,5 +38,11 @@
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.8.1" />
     <PackageReference Include="System.ServiceModel.Federation" Version="4.8.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\websocket-sharp.core_icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
