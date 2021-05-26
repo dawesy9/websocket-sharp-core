@@ -2576,7 +2576,7 @@ namespace WebSocketSharp
 
             _readyState = WebSocketState.Open;
 
-            open().Wait();
+            open().GetAwaiter().GetResult();
         }
 
         // As server
@@ -2719,7 +2719,7 @@ namespace WebSocketSharp
             }
 
             if (accept())
-                open().Wait();
+                open().GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -3492,7 +3492,7 @@ namespace WebSocketSharp
             }
 
             if (connect())
-                open().Wait();
+                open().GetAwaiter().GetResult();
         }
 
         /// <summary>
