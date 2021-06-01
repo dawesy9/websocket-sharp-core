@@ -29,6 +29,7 @@
 using System;
 using System.Collections.Specialized;
 using System.IO;
+using System.Threading.Tasks;
 using WebSocketSharp.Net;
 using WebSocketSharp.Net.WebSockets;
 
@@ -651,14 +652,14 @@ namespace WebSocketSharp.Server
     /// <exception cref="InvalidOperationException">
     /// The session has not started yet.
     /// </exception>
-    protected void CloseAsync ()
+    protected async Task CloseAsync ()
     {
       if (_websocket == null) {
         var msg = "The session has not started yet.";
         throw new InvalidOperationException (msg);
       }
 
-      _websocket.CloseAsync ();
+      await _websocket.CloseAsync ();
     }
 
     /// <summary>
@@ -724,14 +725,14 @@ namespace WebSocketSharp.Server
     ///   <paramref name="reason"/> could not be UTF-8-encoded.
     ///   </para>
     /// </exception>
-    protected void CloseAsync (ushort code, string reason)
+    protected async Task CloseAsync (ushort code, string reason)
     {
       if (_websocket == null) {
         var msg = "The session has not started yet.";
         throw new InvalidOperationException (msg);
       }
 
-      _websocket.CloseAsync (code, reason);
+      await _websocket.CloseAsync (code, reason);
     }
 
     /// <summary>
@@ -788,14 +789,14 @@ namespace WebSocketSharp.Server
     /// <exception cref="ArgumentOutOfRangeException">
     /// The size of <paramref name="reason"/> is greater than 123 bytes.
     /// </exception>
-    protected void CloseAsync (CloseStatusCode code, string reason)
+    protected async Task CloseAsync (CloseStatusCode code, string reason)
     {
       if (_websocket == null) {
         var msg = "The session has not started yet.";
         throw new InvalidOperationException (msg);
       }
 
-      _websocket.CloseAsync (code, reason);
+      await _websocket.CloseAsync (code, reason);
     }
 
     /// <summary>
@@ -1028,14 +1029,14 @@ namespace WebSocketSharp.Server
     /// <exception cref="ArgumentNullException">
     /// <paramref name="data"/> is <see langword="null"/>.
     /// </exception>
-    protected void SendAsync (byte[] data, Action<bool> completed)
+    protected async Task SendAsync (byte[] data)
     {
       if (_websocket == null) {
         var msg = "The current state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
-      _websocket.SendAsync (data, completed);
+      await _websocket.SendAsync (data);
     }
 
     /// <summary>
@@ -1083,14 +1084,14 @@ namespace WebSocketSharp.Server
     ///   The file could not be opened.
     ///   </para>
     /// </exception>
-    protected void SendAsync (FileInfo fileInfo, Action<bool> completed)
+    protected async Task SendAsync (FileInfo fileInfo)
     {
       if (_websocket == null) {
         var msg = "The current state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
-      _websocket.SendAsync (fileInfo, completed);
+      await _websocket.SendAsync (fileInfo);
     }
 
     /// <summary>
@@ -1125,14 +1126,14 @@ namespace WebSocketSharp.Server
     /// <exception cref="ArgumentException">
     /// <paramref name="data"/> could not be UTF-8-encoded.
     /// </exception>
-    protected void SendAsync (string data, Action<bool> completed)
+    protected async Task SendAsync (string data)
     {
       if (_websocket == null) {
         var msg = "The current state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
-      _websocket.SendAsync (data, completed);
+      await _websocket.SendAsync (data);
     }
 
     /// <summary>
@@ -1189,14 +1190,14 @@ namespace WebSocketSharp.Server
     ///   No data could be read from <paramref name="stream"/>.
     ///   </para>
     /// </exception>
-    protected void SendAsync (Stream stream, int length, Action<bool> completed)
+    protected async Task SendAsync (Stream stream, int length)
     {
       if (_websocket == null) {
         var msg = "The current state of the connection is not Open.";
         throw new InvalidOperationException (msg);
       }
 
-      _websocket.SendAsync (stream, length, completed);
+      await _websocket.SendAsync (stream, length);
     }
 
     #endregion

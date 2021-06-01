@@ -2128,21 +2128,10 @@ namespace WebSocketSharp
             }
         }
 
-        private async Task sendAsync(Opcode opcode, Stream stream, Action<bool> completed)
+        private async Task sendAsync(Opcode opcode, Stream stream)
         {
             Func<Opcode, Stream, bool> sender = send;
             var result = await Task.Run(() => sender(opcode, stream));
-
-            try
-            {
-                if(completed != null)
-                    completed(result);
-            }
-            catch(Exception ex)
-            {
-                _logger.Error(ex.ToString());
-                error("An error has occurred during the callback for an async send.", ex);
-            }
         }
 
         private bool sendBytes(byte[] bytes)
@@ -3833,7 +3822,7 @@ namespace WebSocketSharp
         /// <exception cref="ArgumentNullException">
         /// <paramref name="data"/> is <see langword="null"/>.
         /// </exception>
-        public async Task SendAsync(byte[] data, Action<bool> completed)
+        public async Task SendAsync(byte[] data)
         {
             if (_readyState != WebSocketState.Open)
             {
@@ -3844,7 +3833,7 @@ namespace WebSocketSharp
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            await sendAsync(Opcode.Binary, new MemoryStream(data), completed);
+            await sendAsync(Opcode.Binary, new MemoryStream(data));
         }
 
         /// <summary>
@@ -3891,7 +3880,7 @@ namespace WebSocketSharp
         ///   The file could not be opened.
         ///   </para>
         /// </exception>
-        public async Task SendAsync(FileInfo fileInfo, Action<bool> completed)
+        public async Task SendAsync(FileInfo fileInfo)
         {
             if (_readyState != WebSocketState.Open)
             {
@@ -3915,7 +3904,7 @@ namespace WebSocketSharp
                 throw new ArgumentException(msg, "fileInfo");
             }
 
-            await sendAsync(Opcode.Binary, stream, completed);
+            await sendAsync(Opcode.Binary, stream);
         }
 
         /// <summary>
@@ -3949,7 +3938,7 @@ namespace WebSocketSharp
         /// <exception cref="ArgumentException">
         /// <paramref name="data"/> could not be UTF-8-encoded.
         /// </exception>
-        public async Task SendAsync(string data, Action<bool> completed)
+        public async Task SendAsync(string data)
         {
             if (_readyState != WebSocketState.Open)
             {
@@ -3967,7 +3956,7 @@ namespace WebSocketSharp
                 throw new ArgumentException(msg, "data");
             }
 
-            await sendAsync(Opcode.Text, new MemoryStream(bytes), completed);
+            await sendAsync(Opcode.Text, new MemoryStream(bytes));
         }
 
         /// <summary>
@@ -4024,7 +4013,7 @@ namespace WebSocketSharp
         ///   No data could be read from <paramref name="stream"/>.
         ///   </para>
         /// </exception>
-        public async Task SendAsync(Stream stream, int length, Action<bool> completed)
+        public async Task SendAsync(Stream stream, int length)
         {
             if (_readyState != WebSocketState.Open)
             {
@@ -4066,7 +4055,7 @@ namespace WebSocketSharp
                 );
             }
 
-            await sendAsync (Opcode.Binary, new MemoryStream(bytes), completed);
+            await sendAsync (Opcode.Binary, new MemoryStream(bytes));
         }
 
         /// <summary>

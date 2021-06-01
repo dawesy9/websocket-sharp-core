@@ -33,6 +33,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace WebSocketSharp.Server
@@ -1437,7 +1438,7 @@ namespace WebSocketSharp.Server
     ///   The current state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
-    public void SendToAsync (byte[] data, string id, Action<bool> completed)
+    public async Task SendToAsync (byte[] data, string id)
     {
       IWebSocketSession session;
       if (!TryGetSession (id, out session)) {
@@ -1445,7 +1446,7 @@ namespace WebSocketSharp.Server
         throw new InvalidOperationException (msg);
       }
 
-      session.Context.WebSocket.SendAsync (data, completed);
+      await session.Context.WebSocket.SendAsync (data);
     }
 
     /// <summary>
@@ -1507,7 +1508,7 @@ namespace WebSocketSharp.Server
     ///   The current state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
-    public void SendToAsync (string data, string id, Action<bool> completed)
+    public async Task SendToAsync (string data, string id)
     {
       IWebSocketSession session;
       if (!TryGetSession (id, out session)) {
@@ -1515,7 +1516,7 @@ namespace WebSocketSharp.Server
         throw new InvalidOperationException (msg);
       }
 
-      session.Context.WebSocket.SendAsync (data, completed);
+      await session.Context.WebSocket.SendAsync (data);
     }
 
     /// <summary>
@@ -1597,9 +1598,7 @@ namespace WebSocketSharp.Server
     ///   The current state of the WebSocket connection is not Open.
     ///   </para>
     /// </exception>
-    public void SendToAsync (
-      Stream stream, int length, string id, Action<bool> completed
-    )
+    public async Task SendToAsync (Stream stream, int length, string id)
     {
       IWebSocketSession session;
       if (!TryGetSession (id, out session)) {
@@ -1607,7 +1606,7 @@ namespace WebSocketSharp.Server
         throw new InvalidOperationException (msg);
       }
 
-      session.Context.WebSocket.SendAsync (stream, length, completed);
+      await session.Context.WebSocket.SendAsync (stream, length);
     }
 
     /// <summary>
